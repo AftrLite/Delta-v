@@ -89,7 +89,6 @@
     softness: 1
     castShadows: false
   - type: ZombieImmune
-  - type: GhostTakeoverAvailable
   - type: LightBehaviour
     behaviours:
      - !type:FadeBehaviour
@@ -102,6 +101,18 @@
        enabled: true
        isLooped: true
        reverseWhenFinished: true
+  - type: GhostRole
+    allowMovement: true
+    allowSpeech: true
+    makeSentient: true
+    name: ghost-role-information-malign-critter-name
+    description: ghost-role-information-malign-critter-description
+    rules: ghost-role-information-malign-critter-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonistFlock
+    raffle: null # DeltaV - disable raffle for fish
+  - type: GhostTakeoverAvailable
+
 
 - type: entity
   parent: [ BaseMobCosmicHostile, MobCosmicCustodian ]

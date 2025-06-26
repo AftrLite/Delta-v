@@ -18,16 +18,34 @@ public sealed partial class CosmicEntropyDebuffComponent : Component
     [DataField]
     public TimeSpan CheckWait = TimeSpan.FromSeconds(1);
 
-    /// <summary>
-    /// The debuff applied while the component is present.
-    /// </summary>
+
     [DataField]
-    public DamageSpecifier Degen = new()
+    public DamageSpecifier Pool1 = new()
     {
         DamageDict = new()
         {
-            { "Cold", 0.25},
-            { "Asphyxiation", 1.25},
+            { "Cold", 0.09},
+            { "Asphyxiation", 0.69},
+        }
+    };
+
+    [DataField]
+    public DamageSpecifier Pool2 = new()
+    {
+        DamageDict = new()
+        {
+            { "Cold", 0.1},
+            { "Asphyxiation", 0.75},
+        }
+    };
+
+    [DataField]
+    public DamageSpecifier Pool3 = new()
+    {
+        DamageDict = new()
+        {
+            { "Cold", 0.11},
+            { "Asphyxiation", 0.81},
         }
     };
 }

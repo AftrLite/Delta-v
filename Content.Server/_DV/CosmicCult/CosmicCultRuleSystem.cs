@@ -420,35 +420,30 @@ public sealed class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRuleComponen
     private void ConfirmWinState(Entity<CosmicCultRuleComponent> ent)
     {
         var tier = ent.Comp.CurrentTier;
-        var leaderAlive = false;
-        var centcomm = _emergency.GetCentcommMaps();
-        var wrapup = AllEntityQuery<CosmicCultComponent, TransformComponent>();
-        while (wrapup.MoveNext(out var cultist, out _, out var cultistLocation))
-        {
-            if (cultistLocation.MapUid != null && centcomm.Contains(cultistLocation.MapUid.Value))
-            {
-                if (HasComp<CosmicCultLeadComponent>(cultist))
-                    leaderAlive = true;
-            }
-        }
-        if (tier < 3 && leaderAlive)
-            SetWinType(ent, WinType.Neutral); //The Monument isn't Tier 3, but the cult leader's alive and at Centcomm! a Neutral outcome
+        var subdued = false;
+
+        if (tier < 3)
+            SetWinType(ent, WinType.Neutral); // The Monument isn't Tier 3.
+
+        if (tier > 1 && ent.Comp.Cultists.Count < 5 || ent.Comp.TotalCult < 5)
+            subdued = true;
+
         var monument = AllEntityQuery<CosmicFinaleComponent>();
-        while (monument.MoveNext(out var monumentUid, out var comp))
+        while (monument.MoveNext(out _, out var comp))
         {
             _sound.StopStationEventMusic(ent, StationEventMusicType.CosmicCult);
             if (tier == 3 && comp.CurrentState == FinaleState.Unavailable)
             {
-                SetWinType(ent, WinType.CultMinor); //The crew escaped, and The Monument wasn't fully empowered. a small win
+                SetWinType(ent, WinType.CultMinor); // The crew escaped, and The Monument wasn't fully empowered.
             }
-            else if (comp.CurrentState != FinaleState.Unavailable)
+            else if (comp.CurrentState != FinaleState.ActiveFinale)
             {
-                SetWinType(ent, WinType.CultMajor); //Despite the crew's escape, The Finale is available or active. Major win
+                SetWinType(ent, WinType.CultMajor); // The crew escaped, but the Finale was active.
             }
         }
 
-        if (CultistsAlive())
-            return; // There's still cultists alive! stop checking stuff
+        if (!subdued && CultistsAlive())
+            return; // There's more than five cultists left and there's cultists alive. Go back.
 
         _roundEnd.DoRoundEndBehavior(ent.Comp.RoundEndBehavior, ent.Comp.EvacShuttleTime, ent.Comp.RoundEndTextSender, ent.Comp.RoundEndTextShuttleCall, ent.Comp.RoundEndTextAnnouncement);
         ent.Comp.RoundEndBehavior = RoundEndBehavior.Nothing; // prevent this being called multiple times.
@@ -467,7 +462,7 @@ public sealed class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRuleComponen
         if (ent.Comp.TotalCult == 0)
             SetWinType(ent, WinType.CrewComplete); // No cultists registered! That means everyone got deconverted
         else
-            SetWinType(ent, WinType.CrewMajor); // There's still cultists registered, but if we got here, that means they're all dead
+            SetWinType(ent, WinType.CrewMajor); // There's still cultists registered, but if we got here, that means they're dead or subdued.
     }
 
     protected override void AppendRoundEndText(EntityUid uid,

@@ -146,7 +146,7 @@ public enum WinType : byte
     /// </summary>
     CultComplete,
     /// <summary>
-    ///    Cult major win. The Monument reached Stage 3 and was fully empowered.
+    ///    Cult major win. The Monument reached Stage 3 and was active.
     /// </summary>
     CultMajor,
     /// <summary>
@@ -154,11 +154,11 @@ public enum WinType : byte
     /// </summary>
     CultMinor,
     /// <summary>
-    ///     Neutral. The Monument didn't reach Stage 3, The crew escaped, but the Cult Leader also escaped.
+    ///     Neutral. The Monument didn't reach Stage 3.
     /// </summary>
     Neutral,
     /// <summary>
-    ///     Crew minor win. The monument didn't reach Stage 3, The crew escaped, and Cult leader was killed, deconverted, or left on the station.
+    ///     Crew minor win. The crew escaped, and the cult was subdued.
     /// </summary>
     CrewMinor,
     /// <summary>

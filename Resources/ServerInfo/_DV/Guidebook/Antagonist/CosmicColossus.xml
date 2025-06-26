@@ -29,10 +29,6 @@
   - [color=#4cabb3][bold]Colossal Ingress:[/bold][/color] Use your colossal strength to force open a doorway. Even securely bolted doorways will be torn open by your titanic power.
 
   ## Objectives
-  <Box>
-    <GuideEntityEmbed Entity="MobTileDamageArea" Caption=""/>
-  </Box>
-
   Colossi that have encountered the station by happenstance:
   - [color=#4cabb3][bold]Persist[/bold][/color]  - Collectively siphon a certain amount of Entropy from the crew. The more entropy you siphon, the more you can empower the Monument!
   - [color=#4cabb3][bold]Beckon[/bold][/color] - Call forth an Effigy of Entropy at a designated location aboard the station.

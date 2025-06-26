@@ -57,9 +57,9 @@ cosmiccult-roundend-crewcomplete = [color=green]Crew complete victory![/color]
 cosmiccult-summary-cultcomplete = The cosmic cultists ushered in the end!
 cosmiccult-summary-cultmajor = The cosmic cultists' victory will be inevitable.
 cosmiccult-summary-cultminor = The Monument was completed, but not fully empowered.
-cosmiccult-summary-neutral = The cult will live to see another day.
-cosmiccult-summary-crewminor = The cult has been left stewardless.
-cosmiccult-summary-crewmajor = All cosmic cultists were eliminated.
+cosmiccult-summary-neutral = The cosmic cult will live to see another day.
+cosmiccult-summary-crewminor = The cosmic cult has been left bereft of power.
+cosmiccult-summary-crewmajor = The cultists were completely subdued.
 cosmiccult-summary-crewcomplete = Every single cosmic cultist was deconverted!
 
 cosmiccult-elimination-shuttle-call = Based on scans from our long-range sensors, the Λ-CDM anomaly has subsided. We thank you for your prudence. An emergency shuttle has been automatically called to the station for decontamination and debriefing procedures. ETA: {$time} {$units}. Please note, if the psychological impact of the anomaly is negligible, you may recall the shuttle to extend the shift.

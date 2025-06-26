@@ -10,6 +10,7 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.NPC;
 using Content.Shared.Popups;
+using Content.Shared.SSDIndicator;
 using Content.Shared.StatusEffect;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
@@ -46,7 +47,7 @@ public sealed class CosmicSiphonSystem : EntitySystem
             _popup.PopupEntity(Loc.GetString("cosmicability-siphon-full"), uid, uid);
             return;
         }
-        if (HasComp<ActiveNPCComponent>(args.Target) || TryComp<MobStateComponent>(args.Target, out var state) && state.CurrentState != MobState.Alive)
+        if (HasComp<ActiveNPCComponent>(args.Target) || TryComp<SSDIndicatorComponent>(args.Target, out var ssdComp) && ssdComp.IsSSD || TryComp<MobStateComponent>(args.Target, out var state) && state.CurrentState != MobState.Alive)
         {
             _popup.PopupEntity(Loc.GetString("cosmicability-siphon-fail", ("target", Identity.Entity(args.Target, EntityManager))), uid, uid);
             return;
@@ -82,7 +83,7 @@ public sealed class CosmicSiphonSystem : EntitySystem
         uid.Comp.EntropyBudget += uid.Comp.CosmicSiphonQuantity;
         Dirty(uid, uid.Comp);
 
-        _statusEffects.TryAddStatusEffect<CosmicEntropyDebuffComponent>(target, "EntropicDegen", TimeSpan.FromSeconds(21), true);
+        _statusEffects.TryAddStatusEffect<CosmicEntropyDebuffComponent>(target, "EntropicDegen", TimeSpan.FromSeconds(30), true);
         if (_cosmicCult.EntityIsCultist(target))
         {
             _popup.PopupEntity(Loc.GetString("cosmicability-siphon-cultist-success", ("target", Identity.Entity(target, EntityManager))), uid, uid);
